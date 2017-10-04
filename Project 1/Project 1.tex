@@ -1,0 +1,359 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Ipersonica\\ Esercitazione 1 \\ Prof.re Renato Paciorri}
+\author{Matteo Hakimi 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Introduzione}
+Si vuole calcolare la traiettoria di rientro, di una capsula balistica posta in orbita bassa, in diverse configurazioni aerodinamiche:\\
+$\bullet$ \quad capsula senza sviluppo di portanza\\
+$\bullet$ \quad capsula con sviluppo di portanza\\
+Il calcolo della traiettoria verrà reiterato variandone il coefficiente balistico, e le condizioni iniziali quali: angolo di rientro e velocità.\\
+Inoltre si procederà con il calcolo di alcune grandezze grandezze di interesse per questo problema.
+Infine verra effettuato un confronto, a parità di parametro balistico e di condizioni iniziali, tra i dati reali ottenuti per il velivolo ipersonico sperimentale IXV, e la simulazione numerica a una determinato assetto di volo.
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/apollo}
+	\caption{Capsula Apollo}
+\end{figure}
+
+\section{Modello Matematico}
+Si modellizza la capsula come un punto materiale, di massa M, posto in orbita a quota iniziale z dalla superficie terrestre (assunta sferica con raggio pari a $R_{T}=6371$ $km$), e con velocità $V$ inclinata rispetto all'orizzonte locale di un angolo $\theta$ $<<1$, contato positivo verso il basso.\\
+Assumendo un modello di atmosfera isoterma funzione della quota:\\
+$$\rho=\rho_{0}e^{-\gamma \cdot(z-z_{0})}$$\\
+dove $\gamma=1.177$ $10^{-4}$ $m^{-1}$, $z_{0}$ è una quota di riferimento e $\rho_{0}$ è la corrispondente densità a quella quota.\\
+Per semplicità scegliamo  $z_{0}=0$, per cui si ha $\rho_{0}=1.22$ $\frac{kg}{m^3}$.\\
+Inoltre avendo supposto la nostra capsula in orbita bassa, è lecito assumere un modello di gravità costante e pari a $g=g_{0}$ con $g_{0}=9.81$ $\frac{m}{s^2}$.\\
+Le forze in gioco sono:\\
+$\bullet$ \quad La forza peso, diretta ortogonalmente all'orizzonte locale, orientata verso il centro della Terra, indicata con:\\
+ $$W=mg$$\\
+$\bullet$ \quad La resistenza aerodinamica (Drag), diretta in direzione parallela alla velocità ma orientata in verso opposto;\\
+$$D=\frac{1}{2}\rho C_{D} V^{2}S$$\\
+dove $S$ è la superficie frontale della capsula e $C_{D}$ è il coefficiente di resistenza aerodinamico, quest'ultimo indipendente dal numero di Mach.\\
+$\bullet$ \quad La portanza (Lift), diretta ortogonalmente alla direzione della corrente;\\
+ $$L=\frac{1}{2}\rho C_{L} V^{2}S$$\\ 
+ dove $S$ è la superficie della capsula e $C_{L}$ è il coefficiente di portanza, anche'esso indipendente dal numero di Mach. \\diretta ortogonalmente all'orizzonte locale, orientata verso il centro della Terra.\\ 
+$\bullet$ \quad La forza centrifuga:\\
+ $$F_{c}=\frac{MV^{2}}{R_{p}}$$\\
+dove $R_{p}$ è il raggio di curvatura della traiettoria in quel punto, che sotto l'ipotesi di angolo di rientro $\theta$ molto piccolo è assunto $R_{p}=\frac{R_{T}+z}{\cos(\theta)}$.\\
+Fatte queste premesse si passa ora al calcolo dell'equilibrio delle forze, in direzione parallela e ortogonale alla velocità.\\
+Al fine di una migliore comprensione di riporta lo schema di corpo libero della capsula.\\\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/forza}
+	\caption{Diagramma di forze agenti sulla capsula}
+\end{figure}\\\\
+\newpage
+Quindi proiettando si ha:\\
+$\bullet$ In direzione parallela:\\\\
+$$\dot{V}=-\frac{1}{2}\rho V^{2} (\frac{C_{D}S}{M})+g\sin(\theta)$$\\
+$\bullet$ In direzione ortogonale:\\\\
+$$\dot{\theta}=-\frac{1}{2}\rho V^{2} (\frac{C_{L} S}{M})+g\frac{\cos(\theta)}{V}-\frac{V}{R_{T}+z}\cos(\theta)$$\\
+A queste due equazioni, per calcolare la traiettoria dobbiamo aggiungere un'equazione per la quota z.\\
+L'equazione che aggiungiamo è la relazione cinematica che si ha tra la variazione di quota e la velocità.\\
+Ovvero:\\
+$$\dot{z}=-V\sin(\theta)$$\\
+Facendo l'ipotesi di capsula balistica possiamo assumere $C_{L}=0$, mentre per quanto riguarda il calcolo del $C_{D}$, in prima approssimazione, possiamo avvalerci della teoria Newtoniana che correla il coefficiente di pressione $C_{p}$, all'angolo formato tra la tangente alla superficie esposta al flusso del corpo e la direzione del flusso indisturbato\\
+Procedendo con l'integrazione del $C_{p}$, solo sull'area frontale, avendo trascurato le zone in ombra ovvero quelle relative al cono posto dietro lo scudo termico ad arco sferico,e normalizzando il tutto con la sezione frontale si ricava un coefficiente di resistenza funzione dell'angolo di semiapertura del cono, di cui si riporta l'espressione:\\\\
+$$C_D=\frac{1}{\pi (L/2)^2} \int_{0}^{L/2} C_P\:2\pi h\:dh = \frac{C_{Pmax}}{2sin^2(\delta)}(1-\cos^4(\phi)))$$\\ 
+avendo indicato con $\phi$, l'angolo di semiapertura del cono posteriore, e con $\delta$ angolo della tangente locale.\\
+Nel nostro caso dato che $\phi=33°$ si ottiene un $C_{D}=1.68$, ovvero considerando una superficie forntale di 12$m^2$ e una massa pari a $M=5424$ $Kg$, si ha un coefficiente balistico pari a $3.731$ $10^{-3}$ $\frac{m^2}{Kg}$.
+\section{Calcolo della traiettoria}
+Il sistema di equazioni differenziali ordinarie in tempo, ricavate nella precedente sezione, vengono ora implementate in ambiente Matlab e risolte attraverso il metodo numerico di Runge Kutta del $4°$ ordine (ode45).\\
+In particolare nelle sezioni successive vengono riportati i risultati ottenuti avendo posto a parametro:\\\\
+$\bullet$ il coefficiente balistico\\
+$\bullet$ la condizione iniziale sulla velocità\\
+$\bullet$ la condizione iniziale sull'angolo di rientro\\
+
+\subsection{Traiettoria di rientro al variare del coefficiente balistico}
+Si è proceduto col calcolo della traiettoria variando il coefficiente balistico della capsula, in un range $3.731\div18.66$ $10^{-3}$ $\frac{m^2}{kg}$; avendo posto come condizioni iniziali, le condizioni tipiche di un rientro da orbita bassa $V=11140$ $\frac{m}{s}$ $h=120$ $km$ e $\theta=5.9°$. \\
+Si riportano i risulati in forma grafica.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Traiettoriacoefficientebal}
+	\caption{Traiettoria di rientro al variare del coefficiente balistico}
+\end{figure}\\\\
+Si può osservare come a parità di condizioni iniziali, all'aumentare del coefficiente balistico, la capsula comincia la fase di frenata a quote più elevate, ovvero risente degli effetti aerodinamici prima.\\
+Bisogna sottolineare che una frenata a quota elevata, comporta una frenata cosidetta morbida, intendendo che la velocità descresce in un intervallo di tempo maggiore, questo implica fattori di carico più bassi.
+
+\newpage
+\subsection{Traiettoria di rientro al variare della velocità iniziale}
+Si è proceduto col calcolo della traiettoria variando la condizione iniziale sulla velocità, in un range $8000\div11000$ $\frac{m}{s}$, mantenendo le altre condizioni iniziali del caso precedente e prendendo come coefficiente balistico quello calcolato nel paragrafo precedente ($3.731$ $10^{-3}$ $\frac{m^2}{kg}$).Si riportano i risultati ottenuti.\\\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/TraiettoriaV}
+	\caption{Traiettoria di rientro al variare della velocità iniziale}
+\end{figure}\\\\
+Si può notare come la fase di frenata, all'aumentare della velocità iniziale, abbia inizio a quote più elevate, questo perchè anche se la densità è minore a quelle quote, la pressione dinamica risulta essere molto elevata.\\
+Inoltre si riporta l'andamento del fattore di carico calcolato in direzione parallela a quella del moto in funzione della quota, e della condizione iniziale sulla velocità.\\
+\newpage
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Fattorev}
+	\caption{Andamento del fattore di carico longitudinale al variare della velocità iniziale }
+\end{figure}
+Si nota come il fattore di carico presenti un'andamento crescente in una prima fase per poi raggiungere un massimo (inizio della frenata) che si sposta a quote più alte all'aumentare della velocità iniziale di rientro,confermando le supposizioni fatte nell'analisi di traiettoria.\\
+Si nota inoltre come il valore del massimo del fattore di carico aumenti al diminuire della velocità iniziale di rientro.\\
+Tuttavia bisogna sottolineare che in genere la condizione iniziale sulla velocità, è fissata dal tipo di missione della capsula in questione, e coincide pressapoco con quella di percorrenza dell'orbita.
+\subsection{Traiettoria di rientro al variare dell'angolo di rientro}
+Si è proceduto col calcolo della traiettoria variando la condizione iniziale sull'angolo di rientro; l'analisi vedrà coinvolti solo angoli di rientro piccoli, in quanto la modellizzazione è stata fatta secondo questa ipotesi.
+Fissando le altre condizioni iniziali coincidenti casi precedenti, nonchè il parametro balistico, si ottengono i seguenti risultati.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Traiettoriateta6}
+	\caption{Traiettoria di rientro al variare dell'angolo di volo}
+\end{figure}
+Sono stati riportati due grafici al fine di osservare due comportamenti distinti della traiettoria in un range di $\theta$ molto piccoli.\\
+Nel primo caso, riportato in figura 6, si sono riportate le varie traiettorie ottenute facendo variare $\theta$ tra $6°$ e $10°$, nel secondo caso (si veda figura 8) si è fatto variare l'angolo di volo tra $1°$ e $4°$.\\
+\newpage
+Si può osservare come nel primo caso all'aumentare di $\theta$, la fase di frenatura comincia a quote più basse, questo come detto in precedenza implica maggiori fattori di carico, come riportato nella figura seguente.\\\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/Fattore}
+	\caption{Andamento del fattore di carico longitudinale al variare dell'angolo di volo $5°\leq\theta\leq10°$}
+\end{figure}
+\newpage
+Come si può osservare dal grafico per valori dell'angolo $\theta>6°$, i fattori di carico sono troppo elevati per qualsiasi missione in cui si prevede equipaggio umano a bordo.\\
+Si noti inoltre l'enorme sensibilità del fattore di carico al variare della condizione iniziale sull'angolo di rientro $\theta$: si passa infatti da un fattore di carico massimo di circa $5$ per un angolo $\theta$ pari a $5°$ ad un valore di circa $15$ per un $\theta$ pari a $6°$.\\
+Questo pone l'attenzione sulla precisione di eventuali sistemi di controllo e di misurazione dell'angolo di rientro.\\ 
+Nel secondo caso invece, si osserva una prima fase di discesa seguita da una salita; la velocità, si riduce per assestarsi su un valore costante.\\
+In genere questo tipo di manovra è detta aerocattura, e viene sfruttata principalmente, in sostituzione ad apparati propulsivi, per rallentare la capsula al fine di collocarla su un'orbita predefinita con assegnata velocità; il velivolo entra in atmosfera, per diminuire la propria velocità, per poi uscirne.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Traiettoriateta4}
+	\caption{Andamento del fattore di carico longitudinale al variare dell'angolo di volo $1°\leq\theta\leq4°$}
+\end{figure}
+\newpage
+\section{Traiettoria di rientro con sviluppo di portanza}
+In questa sezione si cerca di stimare l'effetto della presenza della portanza sulla traiettoria di rientro.\\
+Per fare questo, dovremmo considerare l'assetto del veivolo istante per istante e quindi al sistema di equazioni di equilibrio alla traslazione dovremmo scrivere un'equazione per i momenti.\\
+Tuttavia in una prima fase di studio si può prescindere da questo procedimento e considerare la nostra capsula in volo con efficienza aerodinamica, $E=\frac{C_{L}}{C_{D}}$, costante.\\
+In questo modo conoscendo il coeffiente di resistenza $C_{D}$ è possibile ricavare il $C_{L}$.\\
+A titolo di esempio si riporta il caso del velivolo sperimentale IXV; avendo assunto un' efficienza pari a $E=0.64$, e considerando un $C_{D}=0.85$ si ha: $C_{L}=0.55$.\\
+Le condizioni iniziali per XV sono $V_{0}=7400$ $\frac{m}{s}$, $\theta_{0}=5.89°$, $h=120$ $km$.\\
+Si riportano i risultati cosi ottenuti, a confronto con la traiettoria dello stesso velivolo senza sviluppo di portanza.\\ 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Traiettoriaport}
+	\caption{Confronto traiettoria di rientro di IXV con e senza sviluppo di portanza}
+\end{figure}\\
+Si notano due traiettorie piuttosto dissimili, nel primo caso (witout lift) la traiettoria risulta quella classica del rientro balistico; nel secondo caso (with lift) la traiettoria risulta piuttosto allungata (anche in termini di tempi di percorrenza).\\
+Dato l'allungamento della traiettoria nonchè dei tempi di percorrenza della stessa, il fattore di carico derivante (riportato in figura 10) risulta essere più basso di circa un fattore 3 rispetto al caso senza sviluppo di portanza riportato in figura 11.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Fattoreport}
+	\caption{Andamento temporale del fattore di carico longitudinale IXV con sviluppo di portanza}
+\end{figure}\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=170mm]{Immagini/Fattoretempo}
+	\caption{Andamento temporale del fattore di carico longitudinale IXV senza sviluppo di portanza}
+\end{figure}\\
+\newpage
+ L'allungamento dei tempi di rientro, attraverso l'uso di velivoli portanti, per certi versi risulta essere un aspetto vantaggioso, basti pensare ai benefici strutturali derivati da un minore fattore di carico.\\
+ Tuttavia, come si vedrà in seguito, favorire l'aerodinamica di un corpo (concepire corpi più affusolati), presenta alcuni aspetti negativi, come ad esempio temperature locali molto intense, ben oltre il limite tecnologico.\\
+ \section{Grandezze caratteristiche del problema del rientro}
+ In questa sezione si procederà col calcolo di alcune grandezze di interesse nel problema del rientro balistico come:\\\\
+ $\bullet$ \quad Temperatura totale, di ristagno e di parete al variare della quota.\\
+ $\bullet$ \quad  Pressione statica , totale e di ristagno al variare della quota.\\
+ $\bullet$ \quad  Numero di Reynolds
+ \subsection{Numero di Reynolds al variare della quota}
+ Una delle grandezze tipiche di interesse, in questo tipo di problema, è il numero di Reynolds.\\
+ Il numero di Reynolds, definito come:\\
+ $$Re=\frac{\rho U L}{\mu}$$
+ dove con $L$ si è indicata la lunghezza caratteristica del corpo, ci fornisce indicazioni sul regime di flusso intorno alla capsula: laminare o turboleto.\\
+ In particolare la condizione di flusso laminare, sussiste per valori del numero di Reynolds inferiori rispetto a quelli che si hanno in condizione di flusso turbolento.\\
+ La stima del numero di Reynolds fornisce informazioni circa lo spessore dello strato limite; ricordiamo infatti che per numeri di Reynolds non molto elevati lo spessore dello strato limite risulta essere grande rispetto a quello che si avrebbe per numeri di Reynolds grandi.\\
+ In particolate per la capsula di rientro con coefficiente balistico pari a $3.731$ $10^{-3}$ $\frac{m^2}{kg}$, e imponendo come condizioni iniziali, le condizioni tipiche di un rientro da orbita bassa $V=11140$ $\frac{m}{s}$ $h=120$ $km$ e $\theta=5.9°$ si ha: \\
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=170mm]{Immagini/Reynolds}
+ \end{figure}\\
+ \newpage
+ Partendo da un numero di Reynolds dell'ordine di $10^3$, in cui si suppone che il regime di flusso sia laminare, si osserva un andamento crescente con al diminuire della quota, fino a raggiungere valori del numero di Reynolds dell'ordine di $10^7$; la velocità decresce ma la densità sta aumentando esponenzialmente.\\
+ Questo implica che durante la traiettoria il flusso presenta caratteristiche sia laminari che turbolente, passando dalle prime alle ultime attraverso la transizione alla turbolenza, fenomeno estremamente difficile da replicare per via sperimentale ne supportato da teoria.\\
+ Si osserva inoltre che per quote prossime a $60$ $km$, quota tipica per questo tipo di problema, il numero di Reynolds presenta un andamento costante per un tratto della traiettoria, ricordiamo come questo tratto coincide con la fase di maggior frenata della capsula.\\
+ \newpage
+ \subsection{Andamento delle pressioni al variare della quota}
+ In questa sezione vengono riportati gli andamenti delle pressioni (statica totale e di ristagno a valle dell'urto normale) al variare della quota.\\
+ In particolare per la capsula balistica di rientro si ha:
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=170mm]{Immagini/Pressione}
+ 	\caption{Andamento delle pressioni statica totale e di ristagno in funzione della quota}
+ \end{figure}
+ L'andamento della pressione statica è giustifica dall'adozione del modello di atmosfera isoterma, che presenta la stessa legge della densità a meno di una costante.\\
+ Per quanto riguarda gli andamenti della pressione totale e a valle dell'urto si nota un massimo in prossimità della quota $h=60$ $km$, coincidente con la fase di frenata massima della capsula.\\
+ Si nota inoltre i diversi ordini di grandezza che presentano le pressioni totali e di ristagno a valle dell'urto, arrivando a sfiorare il $GPa$ e il $MPa$ rispettivamente. Questo pone notevole attenzione sul dimensionamento strutturale, e in particolare su eventuali interazioni tra urti che possono dar luogo a regioni in cui il flusso esterno, raggiunge la superficie della capsula.\\
+ Si osserva inoltre un punto di coalescenza delle pressioni totali e a valle dell'urto, questo a testimoniare la scomparsa dell'urto anteriore stesso.\\
+ Questo fatto è estremamente pericoloso, visto i valori delle grandezze in gioco, non solo di pressioni, ma anche di temperatura (si veda figura 13), dove si arrivano a sfiorare anche i $30000K$, chiaramente ben oltre il limite tecnologico odierno.\\
+  \begin{figure}[htbp]
+  	\centering
+  	\includegraphics[width=170mm]{Immagini/Temperaturatot}
+  	\caption{Andamento della temperatura totale in funzione della quota}
+  \end{figure}\\
+  \newpage
+ \subsection{Temperatura di parete}
+ Si vuole calcolare l'andamento della temperatura di parete lungo la traiettoria.\\
+ Partendo dall'equazione di bilancio termico e considerando solo i termini convettivi e di irraggiamento dalla parete verso il fluido, in prossimità della parete nella zona di ristagno si ha:\\
+ $$q_{conv}=q_{irr}$$\\
+ il termine di irraggiamento lo possiamo esprimere come funzione della temperatura di parete attraverso la legge di Stefan Boltzmann:\\
+ $$q_{irr}=\epsilon \sigma T_{W}^{4}$$\\
+  dove $\sigma$ è la costante di Boltzmann e vale $5.67\cdot10^{-8}$ $\frac{W}{m^{2}K^{4}}$\\
+  Il termine convettivo invece è dato da:\\
+  $$q_{conv}=k\sqrt{\frac{p_{02}}{r}} V^{2}$$\\
+  dove $k$ è un'opportuna costante e vale 0.01113, $r$ è il raggio di curvatura del cerchio osculatore alla superficie interessata, nel nostro caso trattandosi della capsula Apollo si ha $r=4.69$ $m$, mentre la $P_{02}$ è la pressione di ristagno espressa in bar e $V$ è la velocità della capsula.\\
+Da questo semplice bilancio otteniamo una stima della temperatura di parete in funzione della quota della capsula e quindi possiamo conoscere il range di temperature in cui opera il velivolo nella fase di rientro balistico.\\
+Si riportano i risultati ottenuti in forma grafica.\\
+\newpage
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=170mm]{Immagini/Temperaturaw}
+ 	\caption{Andamento della temperatura di parete lungo la traiettoria}
+ \end{figure}
+ Si nota un massimo in corrispondenza della fase di frenata, con temperature che vanno oltre il limite tecnologico, spiegando quindi la necessità di impiego di materiali ablativi nella fase di rientro.\\
+ Come precedentemente detto nella sezione riguardante la traiettoria di rientro di un corpo con coefficiente di portanza diverso da $0$, il fatto che il velivolo sviluppi una forza portante comporta dei benefici dal punto di vista del fattore di carico, delle grandezze di ristagno ma anche dal punto di vista dei flussi termici.\\
+ Un'ultima osservazione degna di nota è il fatto che la temperatura a parete presenti una dipendenza inversamente proporzionale al raggio di curvatura del cerchio osculatore alla parete nel punto considerato, questo implica che laddove si vogliono rendere efficienti gli effetti dell'aerodinamica, affusolando il corpo per massimizzare l'efficienza aerodinamica, il raggio di curvatura locale diventa estremamente piccolo, con conseguente aumento della temperatura di parete, ponendo attenzione su eventuali sistemi di raffreddamento attivi.
+ \section{Confronto dati IXV}
+ La simulazione ottenuta è stata confrontata con i dati del reale rientro dell'IXV, che alla quota di $120km$ ha una velocità di $7.438km/s$ e un angolo di volo pari a $1.162°$. Tali dati sono stati utilizzati (insieme  alle informazioni sul veicolo $m=1800kg$, $S=7.67m^2$, $C_D=0.85$) per una simulazione di rientro, con le stesse ipotesi fatte in precedenza. Il $C_L$ è assunto costante e pari a 0.55; il raggio osculatore nel punto di ristagno è $1.05m$. \\
+ La missione dura circa $6000s$; il veicolo è portato in orbita e poi effettua autonomamente il rientro. La fase di interesse (volo ipersonico) inizia a circa $120km$, dove gli effetti dell'aria iniziano a diventare importanti. L'immagine di destra mostra il movimento delle superfici di controllo (di cui non si è tenuto conto nella simulazione effettuata).
+ \clearpage
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f39}  
+ 		\caption{Traiettoria funzione del tempo, dati IXV}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f42}
+ 		\caption{Andamento degli angoli di alettoni e equilibratore funzione del tempo, dati IXV}
+ 	\end{minipage}
+ \end{figure}
+ 
+ Il grafico di sinistra mostra l'angolo d'attacco durante il rientro. Si nota una variazione dell'angolo di attacco, che causa una variazione dei coefficienti di resistenza e portanza di cui non si è tenuto conto nella simulazione. Tale variazione è comunque limitata, soprattutto tra $90km$ e $40km$ di quota. Il grafico di destra mostra velocità in funzione di quota sia nella fase di salita che in quella di discesa.
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f40}  
+ 		\caption{Andamento dell' angolo di attacco in funzione della quota}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f47}
+ 		\caption{Traiettoria di ascesa e discesa, dati IXV}
+ 	\end{minipage}
+ \end{figure}
+ 
+ I seguenti dati mostrano la densità in scala logaritmica. L'andamento reale non è puramente esponenziale ma può essere assunto tale in prima approssimazione nelle quote di interesse.
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f44}  
+ 		\caption{Andamento della densità in funzione della quota, dati IXV}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f51}
+ 		\caption{Andamento della densità in funzione della quota, scala logaritmica}
+ 	\end{minipage}
+ \end{figure}
+ 
+ \clearpage
+ I seguenti grafici mostrano, solo nelle quote di interesse, il confronto tra i dati reali e quelli usati nel modello per quel che riguarda temperatura e pressione.
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f45}  
+ 		\caption{Andamento della temperatura statica in funzione della quota}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f46}
+ 		\caption{Andamento della pressione statica in funzione della quota, scala logaritmica}
+ 	\end{minipage}
+ \end{figure}
+ 
+ Nelle simulazioni si nota una traiettoria crescente in alcune fasi che non si riscontra in realtà (ciò è dovuto alla variazione di assetto non considerata). Il Mach reale raggiunge 30 nel caso reale e solo 24 nella simulazione. Ciò è chiaramente dovuto alla diverso valore di velocità del suono in quanto alla quota di $120km$ la velocità è stata imposta essere la stessa.
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f41}  
+ 		\caption{Andamento della quota in funzione del tempo}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f43}
+ 		\caption{Andamento del numero di Mach in funzione della quota}
+ 	\end{minipage}
+ 	\vspace{-0.2cm}
+ \end{figure}
+ 
+ Le stesse considerazioni del grafico altitudine vs tempo possono essere ripetute per il grafico altitudine vs velocità. L'angolo $\theta$ è lo stesso a $120km$, durante la discesa l'angolo della simulazione è vicino a quello reale e si mantiene piccolo (e il modello rimane valido). L'angolo nelle simulazioni ha però delle fluttuazioni maggiori. Il range di validità è fino a $60km$ nel caso di modello di atmosfera isoterma.
+ \clearpage
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f48}  
+ 		\caption{Traiettoria}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f49}
+ 		\caption{Andamento dell'angolo di volo in funzione della quota}
+ 	\end{minipage}
+ \end{figure}
+ 
+ Gli ultimi grafici mostrano il fattore di carico e la temperatura di parete. In entrambi si possono notare le fluttuazioni dovute alla traiettoria non sempre di discesa. Il fattore di carico massimo previsto dalla simulazione è circa quello reale (chiaramente la decelerazione dovuta al paracadute non è prevedibile con il semplice modello effettuato). Per quanto riguarda la massima temperatura di parete, la simulazione prevede valori molto maggiori di temperatura nel punto di ristagno rispetto a quelli registrati dal sensore NT8 (che dovrebbe essere collocato in prossimità del punto di ristagno). Bisogna considerare che non è stato usato materiale ablativo nell'IXV ma è stato comunque utilizzato un materiale che sfruttava la combustione per limitare la temperatura interna (non considerato nel modello).
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f50}  
+ 		\caption{Andamento del fattore di carico in funzione della quota}
+ 	\end{minipage}%
+ 	\hspace*{\fill}
+ 	\begin{minipage}{.48\textwidth}
+ 		\centering
+ 		\includegraphics[width=0.9\linewidth]{Immagini/f52}
+ 		\caption{Andamento della temperatura di parete in funzione della quota}
+ 	\end{minipage}
+ \end{figure}
+ 
+\end{document}
