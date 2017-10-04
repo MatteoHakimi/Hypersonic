@@ -1,0 +1,401 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Ipersonica\\ Esercitazione 6 \\ Prof.re Renato Paciorri}
+\author{Matteo Hakimi 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+\section{Introduzione}
+Si vogliono stimare l'entalpia totale nella sezione di prova, e i tempi di durata della prova stessa, in una galleria ipersonica a tubo d'urto.
+In particolare verranno esaminte due tipi di gallerie:\\
+$\bullet$\quad Aria-Aria\\
+$\bullet$\quad Elio-Aria\\
+\section{Galleria Aria-Aria}
+Il primo caso che verrà analizzato riguarda lo studio di una galleria a tubo d'urto, di lunghezza 40 m, a sezione costante e pari a 0.3 m, costituita da due ambienti contenenti aria a diversa pressione, separati da un setto posto esattamente a metà della galleria stessa.\\
+Viene riportato lo schema della galleria:\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/tubo}
+	\caption{Schema della galleria caso aria-aria}
+\end{figure}\\
+Il primo ambiente, indicato con 1 in figura, è delimitato a sinistra da un pistone mobile, mentre a destra del secondo è stata posta una parete in cui è stato praticato un foro, da cui ha inizio il divergente. Si suppone che il provino è posto esattamente nella sezione di uscita del divergente, dove il flusso è reso uniforme e stazionario.\\
+L'avvio della galleria coincide con l'avvio del pistone, il quale viene azionato impulsivamente a velocità costante nota. A questo punto l'onda d'urto normale provocata dal pistone va a collidere con il setto, rompendolo, dando inizio a una serie di fenomeni. Supponendo che il flusso sia 1D, e che l'aria sia un gas perfetto, possiamo pensare di risolvere il problema attraverso i metodi classici della gasdinamica nel caso 1D non stazionario.\\
+Il problema, viene riportato sul piano x-t in figura sotto.\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=80mm]{Immagini/riemann2}
+	\caption{Flusso sul piano x-t}
+\end{figure}\\
+Si passa ora all'analisi dettagliata delle varie zone venutesi a creare.\\
+\subsection{Stato 1-2}
+Gli stati 1 e 2 sono noti. In particolare si ha:\\
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 1& Stato 2\\
+		$u_{1}=0$   m/s& $u_{2}=0$ m/s\\
+		$p_{1}=10$  bar&$p_{2}=1$ bar \\
+		$T_{1}=293$ K&$T_{2}=293$ K\\ 
+		$a_{1}=343$ m/s&$a_{2}=342$ m/s\\ 					
+		
+	\end{tabular}
+\end{center} 
+
+\subsection{Stato 3}
+Supponendo nota la velocità del pistone $v_{p}$ e pari a $v_{p}=1500$ m/s, si ha che $u_{3}=v_{p}$.\\
+La velocità  dell'urto $w_{1}$ si ricava da:\\
+$$w_{1}=\frac{\gamma+1}{4}v_{p}+\sqrt{\left(\frac{\gamma+1}{4}v_{p}\right)^2+a_{1}^2}=1863.19m/s$$
+da cui si ricava:\\
+$$M_{1r}=\frac{w_{1}-u_{1}}{a_{1}}=5.43022$$ 
+dalle relazioni di salto ricaviamo:\\
+$$M_{3r}=0.409749$$
+$$\frac{p_{3}}{p_{1}}=34.2352$$
+$$\frac{T_{3}}{T_{1}}=6.67337$$
+in definitiva per lo stato 3 si ha:\\
+\begin{center}
+	\begin{tabular}{l }
+		Stato 3\\
+		$u_{3}=1500$ m/s\\
+		$p_{3}=342.352$ bar \\
+		$T_{3}=1955.30$ K\\ 
+		$a_{3}=886.363$ m/s\\ 	
+		
+	\end{tabular}
+\end{center} 
+\newpage
+\subsection{Stato 4-5}
+Quando l'urto $w_{1}$ incontra il setto, questo si rompe e vengono a contatto gli stati 3 e 2.\\ 
+Si genera quindi un problema di Riemann che può essere determinato per mezzo delle curve sul piano p-u.\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/pu}
+	\caption{Piano p-u}
+\end{figure}\\
+
+
+
+Dal punto $(u_{3}, p_{3})$ bisogna trovare le coordinate del punto $(u_{2}, p_{2})$ , con $p_{2}<p_{3}$ ed $u_{2}=0$.\\
+Si nota subito che ci si può trovare di fronte ad una interazione di tipo RCS oppure SCS, a seconda della posizione della curva NCS.\\
+Sapendo che:\\
+$$u_{NCS}=u_{3}-\frac{a_{2}}{\gamma}\left(\frac{p_{3}}{p_{2}}-1\right)\left(\frac{\gamma+1}{2\gamma}\frac{p_{3}}{p_{2}}+\frac{\gamma-1}{2\gamma}\right)=-3382.52 m/s$$
+Si ricava che l'interazione è di tipo RCS.\\
+Si risolve quindi il problema di Riemann con un metodo iterativo, ipotizzando la pressione $p_{4}$, che
+è uguale alla $p_{5}$, iterando finchè non si abbia $u_{4}=u_{5}$.
+Il procedimento è il seguete:\\
+Ricordando che lungo le caratteristiche C1 si conserva l'invariante $R2=a+ \delta u$, dove $\delta=\frac{\gamma-1}{2}$, e che la trasformazione attraverso le onde di espansione è di natura isentropica si ha:\\\\
+$\bullet$ {\bf Espansione 3-4} 
+$$\frac{a_{4}}{a_{3}}=\left(\frac{p_{4}}{p_{3}}\right)^{\frac{\gamma-1}{2\gamma}}\rightarrow\quad a_{4}=\frac{a_{4}}{a_{3}}\cdot a_{3}\rightarrow\quad T_{4}=\frac{a_{4}^2}{\gamma R}$$
+$$u_{4}=\frac{1}{\delta}(a_{3}+\delta u_{3}-a_{4})\rightarrow\quad M_{4}=\frac{u_{4}}{a_{4}}$$
+$\bullet$ {\bf Urto 2-5}
+$$p_{5}=p_{4}$$
+conoscendo $\frac{p_{5}}{p_{2}}$ dalle relazioni di salto si ha:\\
+$$a_{5}=\frac{a_{5}}{a_{2}}\cdot a_{2}\rightarrow\quad T_{5}=\frac{a_{5}^2}{\gamma R}\rightarrow\quad w_{2}=a_{2}M_{2r}+u_{2}\rightarrow\quad u_{5}=w_{2}-a_{5}M_{5r}$$.
+Dopo tre iterazioni si ha:\\
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 4& Stato 5\\
+		$u_{4}=2332.50$ m/s& $u_{5}=2332.50$ m/s\\
+		$p_{4}=79.788$ bar&$p_{5}=79.788$ bar \\
+		$T_{4}=1289.70$ K&$T_{5}=4180.58$ K\\ 
+		$a_{4}=719.862$ m/s&$a_{5}=1296.05$ m/s\\ 					
+		
+	\end{tabular}
+\end{center} 
+Supponendo temporaneamente che l'ugello sia assente e sia invece presente una semplice
+diminuzione d'area, per mezzo di un condotto a sezione più piccola.\\ L'urto $w_{2}$, che si lascia alle spalle la zona 5, si dirige quindi verso la zona isentropica 2 dal flusso fermo. 
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/restr1}
+	\caption{Galleria senza divergente, urto in avvicinamento}
+\end{figure}
+
+Incontrando la parete, l'urto si riflette (l'analogo accade con l'ugello) come urto di famiglia opposta e si genera un onda trasmessa della stessa natura e di maggiore intensità, quindi un urto più forte.\\
+Nel mezzo nasce una discontinuità di contatto che separa le zone 6 e 7 attraversate
+dall'urto riflesso e la zona 8 attraversata dall'urto trasmesso.\\
+Tra le zone 6 e 7 avviene una espansione subsonica che porta il Mach in 7 al valore 1; queste due zone hanno la stessa entropia, che è diversa da quella in 8 per via della diversa intensità dei due urti.\\
+
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/restr2}
+	\caption{Galleria senza divergente, urto riflesso e trasmesso}
+\end{figure}
+
+Dato che l'urto incidente $w_{2}$ è sufficientemente intenso da generare un flusso supersonico nella zona 5 ($M_{5}=1.79970$), e visto che l'urto trasmesso è più intenso di esso, il flusso in 8 sarà supersonico. D'altra parte il flusso nella zona 7, dopo l'espansione isentropica, potrà  essere al massimo sonico perchè la sezione è costante. Dunque dovrà  nascere un'onda di espansione di famiglia $C1$ che accelererà il flusso fino alla velocità nella zona $8'$ (che procederà  verso destra perchè $u-a>0$), che è uguale alla velocità in 8 ma a diversa entropia.
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/restr3}
+	\caption{Flusso in galleria con restrizione d'area}
+\end{figure}
+\newpage
+\subsection{Stato 6-7}
+Nel caso in cui sia montato l'ugello in corrispondenza della restrizione d'area, l'urto trasmesso degenera in una variazione continua di entropia.\\ Le onde a seguire passeranno presto e quello che arriva al provino sono le condizioni di ristagno della zona 7 dopo una espansione supersonica, che sono le stesse della zona 6.\\
+Bisogna determinare le condizioni nella zona 6.\\
+Dalla legge delle aree, sapendo che $\frac{A_{6}}{A_{7}}=100$  e ponendo $M_{7}=1$,
+si ricava:\\
+$$M_{6}=0.0057872$$
+Dato che non è noto il salto di pressione tra le zone 5 e 6, occorre impostare un metodo iterativo, per trovare i valori di  $M_{5r}$ e $M_{6r}$.\\
+Ipotizzando il valore di $M_{5r}$ , si può trovare, dalla relazione di salto $M_{6r}$.\\
+Inoltre sapendo che:\\
+$$M_{5r}=M_{5}-\frac{w_{3}}{a_{5}}$$
+da cui:\\
+$$\frac{w_{3}}{a_{5}}=M_{5}-M_{5r}$$
+e che:\\
+$$M_{6r}=M_{6}-\frac{w_{3}}{a_{6}}=M_{6}-\frac{a_{5}}{a_{6}}\frac{w_{3}}{a_{5}}$$
+da cui:\\
+$$\frac{w_{3}}{a_{5}}=\frac{a_{6}}{a_{5}}\left(M_{6}-M_{6r}\right)$$
+Combinando insieme le due espressioni si ricava:\\
+$$M_{6r}=M_{6}-(M_{5}-M_{5r})\frac{a_{5}}{a_{6}}$$
+che va confrontato con quello ricavato dalle relazioni di salto avendo ipotizzato $M_{5r}$.\\
+Dopo un pò di iterazioni si ricava:\\
+\begin{center}
+	\begin{tabular}{l }
+		$M_{5r}=2.54267$\\\\
+		$M_{6r}=0.508983$ \\\\
+		$\frac{a_{6}}{a_{5}}=1.47651$\\ \\
+		$\frac{T_{6}}{T_{5}}=2.18008$\\ \\					
+		
+	\end{tabular}
+\end{center} 
+e quindi si ha per lo stato 6:\\
+\begin{center}
+	\begin{tabular}{l }
+		Stato 6\\
+		$u_{6}=11.0745$ m/s\\
+		$p_{6}=588.52$ bar \\
+		$T_{6}=9113.98$ K\\ 
+		$a_{6}=1913.64$ m/s\\ 					
+		
+	\end{tabular}
+\end{center}
+Le condizioni di ristagno sono allora:\\
+$$T_{06}=T_{6}(1+\delta M_{6}^2)=9114.05 K$$
+$$p_{06}=p_{6}(1+\delta M_{6}^2)^{\frac{\gamma}{\gamma-1}}=588.53 bar$$
+Attraverso la legge delle aree si ha:\\
+$$M_{e}=6.93639$$
+$$p_{e}=0.15 bar$$
+$$T_{e}=858.00 K$$
+Inoltre essendo:\\
+$$c_{p}=R\frac{\gamma}{\gamma-1}$$
+si ricava nel caso di aria ($R=287 J/kgK, \gamma=1.4$)
+$$c_{p}=1004.5 \frac{J}{kg K}$$
+da cui si ha che l'entalpia totale su provino è:\\
+$$H_{e}=c_{p}T_{06}=9.15506 \frac{MJ}{kg K} $$
+\subsection{Stato 9-10}
+Quando l'urto $w_{3}$, procedendo verso sinistra, incontra la discontinuità di contatto che separa gli stati 4 e 5, si ha un secondo problema di Riemann la cui soluzione dipende dagli stati 4 e 6; la natura della soluzione si può determinare sempre attraverso il diagramma p-u.\\
+Dal punto $(u_{4},p_{4})$, bisogna trovare le coordinate del punto $(u_{6},p_{6})$, con $p_{6}>p_{4}$ e $u_{6}=11.0745m/s<<u_{4}$.\\
+Applicando sempre:
+$$u_{NCS}=u_{3}-\frac{a_{2}}{\gamma}\left(\frac{p_{3}}{p_{2}}-1\right)\left(\frac{\gamma+1}{2\gamma}\frac{p_{3}}{p_{2}}+\frac{\gamma-1}{2\gamma}\right)=1043.12 m/s$$
+Si ha allora che la zona 6 si trova allora nel campo delle SCS.\\
+Si risolve quindi il problema di Riemann con un metodo iterativo, ipotizzando la pressione $p_{9}=p_{10}$, iterando finchè non si abbia $u_{9}=u_{10}$.\\\\
+$\bullet$\quad{\bf Urto 4-9}
+Si ipotizza $p_{9}$
+$$\frac{p_{9}}{p_{4}}\rightarrow\quad M_{4r}, M_{9r}$$
+$$\frac{T_{9}}{T_{4}},\frac{a_{9}}{a_{4}} \rightarrow\quad a_{9}=\frac{a_{9}}{a_{4}}\cdot a_{4}, T_{9}=\frac{T_{9}}{T_{4}}\cdot T_{4} $$
+$$w_{5}=u_{4}-a_{4}M_{4r}$$
+$$u_{9}=w_{5}+a_{9}M_{9r}$$
+
+$\bullet$\quad{\bf Urto 6-10}
+$$p_{10}=p_{9}$$
+$$\frac{p_{10}}{p_{6}}\rightarrow\quad M_{6r}, M_{10r}$$
+$$\frac{T_{10}}{T_{6}},\frac{a_{10}}{a_{6}} \rightarrow\quad a_{10}=\frac{a_{10}}{a_{6}}\cdot a_{6}, T_{10}=\frac{T_{10}}{T_{6}}\cdot T_{6} $$
+$$w_{4}=u_{6}-a_{6}M_{6r}$$
+$$u_{10}=w_{4}+a_{10}M_{10r}$$
+Si ricava:\\
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 9& Stato 10\\
+		$u_{9}=631.06$ m/s& $u_{10}=631.10$ m/s\\
+		$p_{9}=912.342$ bar&$p_{10}=912.342$ bar \\
+		$T_{9}=3693.73$ K&$T_{10}=10355.5$ K\\ 
+		$a_{9}=1218.25$ m/s&$a_{10}=2039.815$ m/s\\ 					
+		
+	\end{tabular}
+\end{center} 
+\subsection{Durata della prova}
+Il tempo di durata della prova corrisponde all'intervallo $\Delta t_{1}$ che intercorre tra l'arrivo (e il passaggio nell'ugello) dell'urto $w_{2}$ e quello dell'urto $w_{4}$, per cui le condizioni di ristagno sul provino sono quelle calcolate per la zona 6.\\
+Dato che $L=20m$ e tutte le velocità  sono state calcolate, si calcolano:\\
+$$t_{1}=\frac{L}{w_{1}}=10.73 ms$$
+$$\Delta t_{0}=t_{1}+\frac{L}{w_{2}}=17.78 ms$$
+$$t_{2}=\frac{2L-w_{3}\Delta t_{0}-L+u_{4}t_{1}}{u_{4}-w_{3}}=18.86 ms$$
+$$\Delta L=|w_{3}(t_{2}-\Delta t_{0})|=1.0451 m$$
+$$t_{3}=t_{2}+\frac{\Delta L}{w_{4}}=19.31 ms$$
+$$t_{4}=t_{2}+\frac{\Delta L}{u_{9}}=20.52 ms$$
+
+Da cui si ricava che il tempo di durata della prova è:\\
+$$\Delta t_{1}=t_{3}-\Delta t_{0}=1.53 ms$$
+\section{Galleria Elio-Aria}
+Si può dimostrare che sostituendo il gas nella zona 1 con un gas a più basso peso molecolare, si può aumentare la prestazione del tubo d'urto in termini di maggior entalpia totale per il flusso che investe il provino. \\La ragione si annida nella differenza di velocità  del suono tra la zona 3 e la zona 2 nel primo problema di Riemann.
+\newpage
+Per aumentare la velocità  del suono del gas di sinistra è più conveniente scegliere un gas a basso molecolare, aumentando quindi il $\gamma$ e $R$, piuttosto che agire sulla temperatura (ad esempio, per raddoppiare la velocità del suono occorrerebbe quadruplicare la temperatura).\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/tubo1}
+	\caption{Schema della galleria caso aria-aria}
+\end{figure}
+Il problema da risolvere è sostanzialmente identico al precedendente a meno di sostituire i parametri $\gamma $ e $R$ con quelli relativi all'elio, nelle zone in cui questo è presente.\\
+$$\gamma_{He}\approx1.66667$$
+$$R_{He}=2077.15 \frac{J}{kgK}$$
+Tuttavia in questo caso imponendo il salto di pressione tra la zona 3 e la zona 1 cerchiamo il valore di $v_{p}$ afficnhe si ottenga il salto di pressione imposto a priori.\\
+In particolare, ponendo:\\ $$\frac{p_{3}}{p_{1}}=1+\frac{2\gamma_{He}}{\gamma_{He}+1}(M_{1r}^2-1)=34.2352$$
+si ricava:\\
+$$M_{1r}=5.25244$$
+Inoltre sapendo che:\\
+$$M_{1r}=\frac{w_{1}}{a_{1}}$$
+$$w_{1}^2-\frac{\gamma_{He}+1}{2}v_{p}w_{1}-a_{1}^2=0$$
+si ricava:\\
+$$w_{1}=5289.97 m/s$$
+$$v_{p}=3823.66 m/s$$
+\newpage
+Vediamo ora il problema della nostra galleria sul diagramma x-t, ipotizzando dapprima  una situazione di flusso a priori e poi verificando tale ipotesi a posteriori.\\
+In particolare ipotizziamo:\\
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=100mm]{Immagini/riemann3}
+	\caption{Flusso sul piano x-t}
+\end{figure}\\
+\subsection{Stati 1-2}
+Gli stati 1 e 2 sono noti.\\ In particolare si ha:\\
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 1& Stato 2\\
+		$u_{1}=0$ m/s& $u_{2}=0$ m/s\\
+		$p_{1}=10$ bar&$p_{2}=1$ bar \\
+		$T_{1}=293$ K&$T_{2}=293$ K\\ 
+		$a_{1}=1007.15$ m/s&$a_{2}=343.114$ m/s\\ 						
+	\end{tabular}
+\end{center} 
+\subsection{Stato 3}
+Sapendo che:\\
+$$u_{3}=v_{p}=3823.66 m/s$$
+e che:\\
+$$M_{3r}=0.472619$$
+$$\frac{T_{3}}{T_{1}}=9.48953$$
+Si ottiene che lo stato 3 è caratterizzato da:\\
+\begin{center}
+	\begin{tabular}{l }
+		Stato 3\\
+		$u_{3}=3823.66$ m/s\\
+		$p_{3}=342.352$ bar \\
+		$T_{3}=2780.43$ K\\ 
+		$a_{3}=3102.52$ m/s\\ 					
+		
+	\end{tabular}
+\end{center} 
+
+\subsection{Stati 4-5}
+Le pressioni tra gli stati 2 e 3 dai quali nasce il primo problema di Riemann sono le stesse, quindi la natura della soluzione può essere anche qui di tipo RCS o SCS, ma non si conosce l'equazione della curva NCS.\\
+Ipotizzando che anche qui l'interazione sia di tipo RCS, si prova a vedere se si riesce a trovare la soluzione con il metodo iterativo descritto in precedenza. Si ricorda che vanno sostituite le grandezze relative all'elio ove necessario.\\
+Iterando, come fatto nel caso Aria-Aria, e avendo ipotizzato un'interazione di tipo RCS, il metodo converge a soluzione con un difetto di velocità tra $u_{4}$ e $u_{5}$ dell'ordine di $10^{-12}$, trovando che per lo stato 4 e 5 si ha:\\
+
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 4& Stato 5\\
+		$u_{4}=4289.89$ m/s& $u_{5}=4289.89$ m/s\\
+		$p_{4}=264.779$ bar&$p_{5}=264.779$ bar \\
+		$T_{4}=2508.86$ K&$T_{5}=13214.7$ K\\ 
+		$a_{4}=2947.11$ m/s&$a_{5}=2304.27$ m/s\\ 					
+		
+	\end{tabular}
+\end{center}
+\subsection{Stati 6-7}
+Analogamente a quanto visto nel caso Aria-Aria, si ha:\\
+$$\frac{A_{6}}{A_{7}}=100$$
+e ponendo $M_{7}=1$, si ricava:\\
+$$M_{6}=0.0057872$$
+Esattamente come nella sezione Aria-Aria, dato che non è noto il salto di pressione tra le zone 5 e 6, occorre impostare un metodo iterativo, per trovare i valori di  $M_{5r}$ e $M_{6r}$.\\
+Ipotizzando il valore di $M_{5r}$ , si pu\'o trovare, dalla relazione di salto $M_{6r}$.\\
+In particolare si ha che:\\
+\begin{center}
+	\begin{tabular}{l }
+		$M_{5r}=2.60720$\\
+		$M_{6r}=0.503250$ \\
+		$\frac{a_{6}}{a_{5}}=1.49858$\\ 
+		$\frac{T_{6}}{T_{5}}=2.24574$\\ 					
+		
+	\end{tabular}
+\end{center} 
+e quindi si ha per lo stato 6:\\
+\begin{center}
+	\begin{tabular}{l }
+		Stato 6\\
+		$u_{6}=19.9838$ m/s\\
+		$p_{6}=2055.67$ bar \\
+		$T_{6}=29676.9$ K\\ 
+		$a_{6}=3453.14$ m/s\\ 					
+		
+	\end{tabular}
+\end{center}
+Le condizioni di ristagno sono allora:\\
+$$T_{06}=T_{6}(1+\delta M_{6}^2)=29677.1 K$$
+$$p_{06}=p_{6}(1+\delta M_{6}^2)^{\frac{\gamma}{\gamma-1}}=2055.72 bar$$
+Attraverso la legge delle aree si ha:\\
+$$M_{e}=6.93629$$
+$$p_{e}=0.526234 bar$$
+$$T_{e}=2793.81 K$$
+Inoltre essendo:\\
+$$c_{p}=R\frac{\gamma}{\gamma-1}$$
+si ricava nel caso di aria ($R=287 J/kgK, \gamma=1.4$)
+$$c_{p}=1004.5 \frac{J}{kg K}$$
+da cui si ha che l'entalpia totale su provino è:\\
+$$H_{e}=c_{p}T_{06}=29.8106 \frac{MJ}{kg K} $$
+Si nota dunque come le grandezze totali sul provino siano aumentate e dunque anche l'entalpia totale.
+\subsection{Stati 9-10}
+Per il secondo problema di Riemann non si conoscono a priori le possibili soluzioni.\\ Quello che si può ipotizzare è che l'urto $w_{3}$ continui a propagare verso sinistra, ma bisogna trovare la natura dell'onda riflessa verso destra.\\
+Si effettuano delle iterazioni semplificate considerando onde isentropiche, tentando le due strade SCS ed SCR e vedendo quale delle due porta ad una soluzione.\\
+In particolare l'interazione cercata è di tipo SCR.\\
+Si riportano i risultati ottenuti degli stati 9 e 10.\\
+\begin{center}
+	\begin{tabular}{l l}
+		Stato 9& Stato 10\\
+		$u_{9}=-180.920$ m/s& $u_{10}=-180.920$ m/s\\
+		$p_{9}=1893.97$ bar&$p_{10}=1893.97$ bar \\
+		$T_{9}=6759.12$ K&$T_{10}=28990.3$ K\\ 
+		$a_{9}=4837.31$ m/s&$a_{10}=3412.96$ m/s\\ 					
+		
+	\end{tabular}
+\end{center} 
+\subsection{Durata della prova}
+Il tempo di durata della prova corrisponde a $\Delta t_{1}$ che intercorre tra l'arrivo dell'urto $w_{2}$ sul foro e quello del fronte d'onda anteriore dell'espansione 6-10.\\
+Per poter calcolare tale durata è necessario quindi calcolarci la velocità  del fronte d'onda anteriore e posteriore.\\ 
+In particolare si ha:\\
+$$v_{a}=u_{6}+a_{6}=3473.12 m/s$$ 
+$$v_{p}=u_{10}+a_{10}=3232.04 m/s$$
+Si ha dunque:\\
+$$t_{1}=\frac{L}{w_{1}}=3.78 ms$$
+$$\Delta t_{0}=t_{1}+\frac{L}{w_{2}}=7.65 ms$$
+$$L+u_{4}(t_{2}-t_{1})=2L +w_{3}(t_{2}-\Delta t_{0})$$
+Da cui:\\
+$$t_{2}=\frac{2L-w_{3}\Delta t_{0}-L+u_{4}t_{1}}{u_{4}-w_{3}}=8.22 ms$$
+$$t_{3}=t_{2}+\frac{\Delta L}{v_{a}}=8.50 ms$$
+$$\Delta t_{1}=t_{3}-\Delta t_{0}=0.85 ms$$
+\section{Contronto Gallerie}
+
+Si riportano dapprima i risultati ottenuti precedentemente per poi commentarli.\\
+\begin{center}
+	\begin{tabular}{l l}
+		Caso Aria-Aria& Caso Elio-Aria\\
+		$H_{tot}=9.15506$ $\frac{MJ}{kg}$&$H_{tot}=29.8106$ $\frac{MJ}{kg}$\\
+		$\Delta t_{prova}=1.53$ ms& $\Delta t_{prova}=1.53$ ms \\		
+	\end{tabular}
+\end{center} 
+Si osserva come, mettendo aria nella zona 1 anzichè aria, l'entalpia totale sul provino aumenti notevolmente, offrendo, in questo modo, la possibilità  di riprodurre un flusso reale.\\
+Tuttavia si osserva come il tempo di prova è diminuito di circa la metà rispetto al caso precedente.\\
+
+
+
+	
+\end{document}
