@@ -1,0 +1,417 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage[a4paper,top=1.5cm,bottom=1.4cm,left=1.4cm,right=1.4cm]{geometry}
+\date{}
+\begin{document}
+\title{Ipersonica\\ Esercitazione 2 \\ Prof.re Renato Paciorri}
+\author{Matteo Hakimi 1455230}
+\maketitle
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=100mm]{Immagini/1}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+\section{Introduzione}
+Si vuole analizzare il profilo di velocità e di temperatura a parete di una lastra piana soggetta a due condizioni di flusso, subsonico e ipersonico, ipotizzando che la parete  sia nel primo caso  adiabatica, poi isoterma e infine radiativa . \\
+Per fare questo ci si avvale dell'integrazione delle equazioni di Navier Stokes che, riscritte introducendo opportune variabili e sotto alcune ipotesi, nel caso della lastra piana forniscono dei risultati che si discostano poco rispetto a quelli trovati sperimentalmente.\\
+Infine, verrà condotto il calcolo dello strato limite in prossimità di un punto di ristagno di un corpo tozzo, nella fattispecie un cilindro.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=100mm]{Immagini/strato}
+	\caption{Lastra piana}
+\end{figure}
+\section{Formulazione del modello}
+Come detto precedentemente nello studio del comportamento del flusso in prossimità di una parete, nonchè delle sue variabili caratterizzanti, le equazioni di Navier Stokes possono essere riscritte attraverso alcune variabili che di fatto semplificano il problema considerato; infatti questo metodo ci permette di riscrivere il sistema di equazioni alle derivate parziali in un sistema alle derivate ordinarie.\\
+Partendo dalle equazioni di Navier Stokes che riportiamo:\\
+$$\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho {\bf u}) = 0$$
+
+$$ {\partial{\bf u}\over{\partial t}} + ({\bf u} \cdot \nabla) {\bf u} = - {1\over\rho} \nabla p + \nu\nabla^2{\bf u} $$
+
+$$ \rho C_{p}\frac{DT}{Dt}=\frac{Dp}{Dt}+\nabla\cdot(k\nabla T)+\mu\Phi$$\\
+dove $\Phi$ è la funzione di dissipazione, k la conducibilità termica, e $\nu$ la viscosità cinematica.\\
+Si procede ora con l'adimensionalizzazione, introducendo L la lunghezza del corpo, e indicando con $\infty$ le grandezze del fluido nella condizione indisturbata:\\
+
+$\bar{\rho}=\frac{\rho}{\rho_{\infty}}$\quad $\bar{t}=\frac{t}{U_{\infty}L}$\quad $\bar{U}=\frac{\bf u}{U_{\infty}}$\quad  $\bar{x}=\frac{\bf x}{L}$\quad $\bar{\mu}=\frac{\mu}{\mu_{\infty}}$\quad$\bar{k}=\frac{k}{k_{\infty}}$\quad\\\\
+\newpage
+tutto diventa:\\
+
+$$\frac{\partial \bar{\rho}}{\partial \bar{t}} + \nabla\cdot(\bar{\rho} \bar{{\bf u}})  = 0$$
+
+$$ {\partial{\bar{\bf u}}\over{\partial \bar{t}}} + (\bar{{\bf u}} \cdot \nabla) {\bar{\bf u}} = - {1\over M_{\infty}^{2}\gamma}{1\over\bar{\rho}} \nabla \bar{p} + \frac{1}{Re}\nabla^2{\bf u} $$
+
+$$ \bar{\rho}{\gamma\over \gamma-1} \frac{D\bar{T}}{Dt}=\frac{D\bar{p}}{D\bar{t}}+{1\over PrRe}{\gamma\over \gamma-1}\nabla\cdot(k\nabla T)+{\gamma M_{\infty}^{2}\over Re}\bar{\mu}\bar{\Phi}$$\\\\
+con l'aggiunta delle condizioni al contorno:\\\\
+$\bullet$\quad $y=0$\quad $\bf u=0$\quad${\partial{\bar{T}}\over{\partial y}}=0$ (caso adiabatico)\quad $\bar{T}=\bar{T_{w}}$ (caso isotermo)\\\\
+$\bullet$\quad $y=\infty$\quad $\bar{\bf u} =\bar{\bf u_{e}}$\quad $\bar{T}=\bar{T_{e}}$\\\\
+avendo indicato con y la normale esterna al corpo.\\
+Supponendo un flusso stazionario su una lastra piana, cercheremo di semplificare il problema nell'ambito dei profili simili così da trasformare il sistema di equazioni alle derivate parziali in un sistema di equazioni alle derivate ordinarie togliendo definitivamente la dipendenza da x.\\
+Per fare questo si introducono delle variabili ausiliarie, cosi definite:\\\\
+$$\eta=\frac{u_{e}}{\sqrt{2\xi}}\int_0^y \rho(y)\,dy$$
+$$\xi=\int_{0}^{x}\rho_{e}u_{e}\mu_{e},dx$$
+$${\partial{f}\over{\partial \eta}}=f^{'}=\frac{u}{u_{e}}$$
+$$g=\frac{h}{h_{e}}=\frac{T}{T_{e}}$$
+Sostituendo nelle equazioni le variabili ausiliarie $\eta$ e $\xi$ $f=f(\eta)$ e $g=g(\eta)$, e considerando che nel caso della lastra piano si ha ${\partial{u_{e}}\over{\partial x}}={\partial{p}\over{\partial y}}=0$ il sistema di equazioni si riduce a:\\\\
+$$\frac{\partial }{\partial \eta}\left(C\frac{\partial^2 f}{\partial \eta^2}\right)+f\frac{\partial^2 f}{\partial \eta^2}=\frac{2\xi}{u_{e}}\left[\frac{\partial^2 f}{\partial \eta^2}-\frac{\rho_{e}}{\rho} \right]\frac{\partial u_{e}}{\partial \xi}+2\xi\left[\frac{\partial f}{\partial \eta}\frac{\partial^2 f}{\partial \eta\xi}-\frac{\partial f}{\partial \xi}\frac{\partial^2 f}{\partial \eta^2}\right]$$
+$$\frac{\partial p}{\partial \eta}=0$$
+$$\frac{\partial }{\partial \eta}\left(\frac{C}{Pr}\frac{\partial g}{\partial \eta}\right)+f\frac{\partial g}{\partial \eta}=2\xi\left[\frac{\partial f}{\partial \eta}\frac{\partial g}{\partial \xi}+\frac{\partial g}{\partial \eta}\frac{\partial f}{\partial \xi}+\frac{\rho_{e}u_{e}}{\rho h_{e}}\frac{\partial f}{\partial \eta}\frac{\partial u_{e}}{\partial \xi}\right]-C\frac{u_{e}^2}{h_{e}}\left(\frac{\partial^2 f}{\partial \eta^2}\right)^2$$\\\\
+Avendo indicato con $C=\frac{\rho\mu}{\rho_{e}\mu_{e}}$. L'equazione della conservazione della massa è automaticamente soddisfatta; infatti avendo scelto $u=\frac{\partial f}{\partial \eta}$. si può dimostrare che la funzione di corrente $\Psi$ è collegata a $f$, e quando scrivo l'equazione di conservazione della massa ottengo un'identità.  \\
+\newpage
+\section{Strato limite incomprimibile}
+In questa sezione si vuole calcolare l'andamento del profilo di velocità per una lastra piana investica da un flusso incomprimibile.\\
+L'interesse di questo tipo di analisi, sta nel riuscire a stimare lo sforzo di shear a parete.\\
+Nel caso di flusso incomprimibile, per come è definito C, possiamo supporre $C=1$, in questo modo il sistema ricavato precedentemente risulta essere disaccoppiato.\\
+Inoltre nel caso di lastra piana si ha $\frac{\partial u_{e}}{\partial \xi}=0$.\\
+In particolare il sistema di equazioni si riduce a:\\
+$$f^{'''}+ff^{''}=0$$
+Dove con $f'$ si è indicata $\frac{\partial f}{\partial \eta}$.\\
+mentre per le condizioni al contorno si ha:\\\\
+$\bullet$\quad $\eta=0$\quad $f=f^{'}=0$\\\\
+$\bullet$\quad $\eta=\infty$\quad $f^{'}=1$\\\\
+Al fine di risolvere il problema differenziale e di implementare l'equazione su calcolatore, l'equazione ordinaria del terzo ordine viene ricondotta ad un sistema di 3 equazioni ordinarie del primo ordine:\\\\
+$$f^{'}=F$$
+$$F^{'}=H$$
+$$H^{'}=-fH$$\\\\
+Mentre le condizioni al contorno diventano:\\\\
+$\bullet$\quad $\eta=0$\quad $f=F=0$\\\\
+$\bullet$\quad $\eta=\infty$\quad $F=1$\\\\
+In genere in questo tipo di problemi, alle condizioni al contorno asintotiche ($F(\infty)=1$), quello che si usa è la tecnica di over-shooting, che consiste nel ricondurre la condizione asintotica a una condizione iniziale, assegnando come primo valore un valore tentativo di $H(0)=H_{i}$ iterando fino a convergenza della $F$ all'infinito.\\
+Dopo un numero di tre iterazioni, si è scelto un valore interpolato di $H(0)_{int}=0.4698$ ottenuto con un errore sulla $F(\infty)$ pari a $2.95\cdot10^{-4}$.\\
+In tabella vengono riportati i valori ottenuti ad ogni passo.\\
+\begin{center}
+	\begin{tabular}{ c c }
+		\hline
+		H(0)   & $\epsilon=F(\infty)-1$\\
+		\hline
+		1      & 0.655\\
+		\hline
+		0.5    & 0.0428\\
+		\hline
+		0.45   &-0.0280\\
+		\hline
+		0.4698 & 2.95e-4\\
+		\hline
+
+		\hline
+	\end{tabular}
+\end{center}
+\newpage
+Il profilo di velocità adimensionalizzato, ottenuto attraverso il processo sovraesposto, viene riportato nella figura sottostante.\\\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/blasius}
+	\caption{Andamento $u/u_{e}$ in funzione di $\eta$ lastra piana, caso incomprimibile}
+\end{figure}\\\\
+Si osserva come già per $\eta=4$ il profilo, che parte dall'origine, si raccorda col valore asintotico unitario.\\
+\newpage
+\section{Strato limite comprimibile}
+In questa sezione si vuole calcolare l'andamento del profilo di velocità per una lastra piana investita da un flusso comprimibile.\\ In ambito ipersonico inoltre ha interesse calcolare il profilo di temperatura a parete, poichè quest'ultimo risulta essere di notevole importanza, date le temperature e i flussi termici in gioco.\\
+In questo caso l'ipotesi di densità costante non è più applicabile, tuttavia  in prima approssimazione si può considerare costante la viscosità all'interno dello strato limite e pari al valore esterno.\\
+Anche se le equazioni risultano non disaccopiate le cose si semplificano; infatti in questo modo si ha:\\
+$$C=g^{-1}$$\\
+Supponendo inoltre $Pr=1$, e introducendo delle variabili ausiliare per ricondurre il sistema di due equazioni del quinto ordine complessivo a un sistema di cinque equazioni del primo ordine, si ha:\\\\
+$$f^{'}=F$$
+$$F^{'}=H$$
+$$g^{'}=G$$
+$$H^{'}=\frac{GH}{g}-fHg$$
+$$G^{'}=\frac{G^{2}}{g}-fgG-(g-1)M_{\infty}^{2}H^{2}$$\\\\
+con le seguenti condizioni al contorno:\\\\
+$\bullet$\quad $\eta=0$\quad $f=F=0\quad G=0$\quad(caso adiabatico)\quad $g=g_{w}$\quad(caso isotermo)\\\\
+$\bullet$\quad $\eta=\infty$\quad $F=g=1$\\\\
+
+\subsection{Lastra piana adiabatica}
+Nella sezione precedente abbiamo visto la formulazione del problema nel caso generale, prescindendo se la parete del corpo sia isoterma o adiabatica.\\
+In questa sezione vogliamo dedicarci allo studio del caso particolare di lastra piana adiabatica, soggetta a un flusso ad alto numero di Mach.\\
+Supponendo un $M_{\infty}=10$ le equazioni nel caso adiabatico diventano:\\\\
+
+$$f^{'}=F$$
+$$F^{'}=H$$
+$$g^{'}=G$$
+$$H^{'}=\frac{GH}{g}-fHg$$
+$$G^{'}=\frac{G^{2}}{g}-fgG-(g-1)M_{\infty}^{2}H^{2}$$\\\\
+con le seguenti condizioni al contorno:\\\\
+$\bullet$\quad $\eta=0$\quad $f=F=0\quad G=0$\\\\
+$\bullet$\quad $\eta=\infty$\quad $F=g=1$\\\\
+Analogamente a quanto fatto precedentemente per il caso incombrimibile anche qui ci avvialiamo della tecnica di over-shooting, trasformando il problema alle condizioni asintotiche in uno alle condizioni iniziali; tuttavia nel nostro caso sono presenti due condizioni asintotiche che presupporrebbero l'iterazione per ognuno di essi.\\
+Per ovviare a questo problema si può far ricorso all'analogia di Reynolds, imponendo la condizione iniziale su $g(0)$ nota e pari a:
+$$g(0)=\frac{T_{e0}}{T_{e}}=1+\delta M_{\infty}^{2}$$ 
+dove $\delta=\frac{\gamma-1}{2}$.\\
+Cosi facendo si itera solo rispetto al valore $H(0)$.
+Anche in questo caso, dopo un numero pari a tre iterate, si è ottenuto un valore di $H(0)=2.8865$ commettendo un errore pari a $\epsilon=3.7398$ $10^{-4}$.\\
+Vengono riportati i risultati ottenuti in forma grafica.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/velocitaeta}
+	\caption{Andamento $u/u_{e}$ in funzione di $\eta$, lastra piana, caso adiabatico}
+\end{figure}\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/temperaturaeta}
+	\caption{Andamento $T/T_{e}$ in funzione di $\eta$, lastra piana, caso adiabatico}
+\end{figure}\\
+\newpage
+Si osserva come nell'andamento della temperatura sia presente, in prossimità della parete una pendenza a tangente verticale.\\
+Per quanto riguarda il profilo di velocità si può osservare come presenti un andamento molto simile al caso incomprimibile, con la differenza, che questa volta il recupero di velocità si ha per un valore di $\eta$ che risulta essere circa la metà del caso precedente.\\
+Per completezza viene riportato il profilo di velocità in funzione della variabile di Van Driste $\frac{y}{x}\sqrt{Re_{x}}$, la quale, fissata la sezione x, ci permette di risalire all'andamento della soluzione nel piano fisico.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/velocitavan}
+	\caption{Andamento $u/u_{e}$ in funzione della variabile di Van Driste, lastra piana, caso adiabatico}
+\end{figure}\\
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=150mm]{Immagini/temperaturavan}
+\caption{Andamento $T/T_{e}$ in funzione della variabile di Van Driste, lastra piana, caso  adiabatico}
+\end{figure}\\
+\newpage
+Si osserva come gli andamaneti risultino meno schiacciati e più regolare in prossimità della parete.\\
+Infine si riportano i risultati ottenuti mettendo a paramentro il numero di Mach; nella fattispecie si sono usati tre valori del numero di Mach, rispettivamente $M_{\infty}=10$ $M_{\infty}=11$ $M_{\infty}=12$. \\
+Svolgendo analogamente il procedimento descritto sopra, si riportano i valori assegnati ad $H(0)$ in tabella.\\
+\begin{center}
+	\begin{tabular}{ c c c }
+		\hline
+		$M_{\infty}$ & $H(0)_{int}$  & $\epsilon$ \\
+		\hline
+		10 & 2.8865   &  3.7398  $10^{-4}$\\
+		\hline
+		11 & 3.1782   & -2.3309  $10^{-5}$\\
+		\hline
+		12 & 3.4831   & -7.4469  $10^{-4}$\\
+		\hline
+		
+		\hline
+	\end{tabular}
+\end{center}
+
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/velvanmach}
+		\caption{Andamento $u/u_{e}$ al variare del Mach, lastra piana, caso adiabatico}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=150mm]{Immagini/tempvanmach}
+	\caption{Andamento $T/T_{e}$ al variare del Mach, lastra piana, caso adiabatico}
+\end{figure}
+\newpage
+Come si può osservare all'aumentare del Mach $M_{\infty}$ il valore asintotico della soluzione avviene per valori di $\eta$ maggiori, inoltre, con riferimento al profilo di velocità, si nota come in prossimità della parete, la derivata della velocità aumenta il che di fatto implica un aumento dello shear a parete.\\ 
+\subsection{Lastra piana isoterma}
+In questa sezione si vuole affrontare il problema del calcolo del profilo di velocità, nonchè di tempertura, in prossimità della parete di una lastra piana isoterma.\\
+Per fare ciù dobbiamo cambiare le condizioni al contorno del sistema di equazioni dello strato limite, ottenuto precedentemente.\\
+In particolare per $T_{w}=T_{\infty}$ si ha:\\
+$$f^{'}=F$$
+$$F^{'}=H$$
+$$g^{'}=G$$
+$$H^{'}=\frac{GH}{g}-fHg$$
+$$G^{'}=\frac{G^{2}}{g}-fgG-(g-1)M_{\infty}^{2}H^{2}$$\\\\
+con le seguenti condizioni al contorno:\\\\
+$\bullet$\quad $\eta=0$\quad $f=F=0\quad g=1$\\\\
+$\bullet$\quad $\eta=\infty$\quad $F=g=1$\\\\
+Anche in questo caso, per la risoluzione del problema, si adotterà la tecnica di over-shooting al fine di ricondurre il problema ai valori asintotici ad un problema di valori iniziali in modo da implementarlo in ambiente Matlab.\\
+Per fare questo ci avvaliamo dell'analogia di Reynolds, che fornisce un collegamento diretto tra il campo di velocità $u$ e quello di temperatura $T$.\\
+Procedendo per questa via sia ha che:\\\\
+$$T=T_{w}+(T_{0\infty}-T{w})\frac{u}{u_{\infty}}-\frac{u^2}{2C_{p}}$$\\
+Derivando tutto rispetto alla variabile $\eta$ si ha:\\
+$$\frac{d T}{d\eta}=\frac{(T_{0\infty}-T{w})}{u_{\infty}}\frac{d u}{d\eta }$$\\
+Ricordando che $T=T_{e}g$ e che $u=u_{e}F$, sostituendo si ottiene:\\
+$$G(0)=\frac{\gamma-1}{2}M_{\infty}^2H(0)$$\\\\
+Scegliendo come valore di primo tentativo un valore di $H(0)=H_{i}$ possiamo calcolarci $G(0)$ e iterare fino a convergenza.\\
+\newpage
+Si riportano i risultati cosi ottenuti.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/fiso}
+		\caption{Andamento $u/u_{e}$ in funzione di $\eta$, lastra piana, caso isotermo}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/giso}
+		\caption{Andamento $T/T_{e}$ in funzione di $\eta$, lastra piana, caso isotermo}
+\end{figure}
+
+
+Si nota un massimo sull'andamento del profilo di temperatura dell'ordine della temperatura totale all'infinito $T_{0\infty}$.\\
+Si nota inoltre come il profilo di temperatura presenti una derivata a parete positiva, cosi come ci si aspetta da teoria.\\
+\newpage
+\subsection{Lastra piana con parete radiativa}
+L'ultimo caso preso in considerazione è quello riguardante il caso di una lastra piana radiativa.\\
+Partendo dall'equazione di bilancio termico, e nell'ipotesi che l'irraggiamaneto sia solo dalla parete verso il flusso all'infinito si ha:\\
+$$q_{c}=q_{r}$$
+dove con $q_{c}$ si è indicato il calore scambiato per convezione con il fluido che lambisce la lastra piana, e $q_{r}$ quello scambiato per irragiamento dalla parete al fluido.\\
+Ovvero:\\
+$$k\frac{d T}{d y}=\epsilon\sigma(T_{w}^4-T_{\infty}^4)$$
+essendo $\epsilon$ l'efficacia della radiazione assunta pari a $0.8$, e $\sigma$ la costante di Stefan-Boltzmann pari a $5.67$ $10^{-8}$ $\frac{W}{m^2K^4}$.\\
+Sapendo che:\\
+$$\frac{d T}{d y}=\frac{d T}{d\eta}\frac{d\eta}{d y}$$\\
+e inoltre:\\
+$$\frac{d \eta}{d y}=\frac{1}{\sqrt{2}}\frac{1}{\sqrt{Re_{x}}}\frac{u_{e}\rho_{e}}{\mu_{e}}$$\\
+e ricordando $\frac{\partial T}{\partial \eta}=T_{e}G$ e che $g(0)=\frac{T_{w}}{T_{e}}$,  svolgendo le dovute sostituzioni e semplificando si giunge a:\\\\
+$$g(0)(g(0)^4-1)=\frac{1}{\sqrt{2}}\frac{\gamma}{\gamma-1}\frac{M_{e}a_{e}p_{e}}{\sqrt{Re_{x}}\epsilon\sigma T_{e}^4}G(0)$$
+$$g(0)(g(0)^4-1)=A(x)G(0)$$
+espressione che può essere utilizzata per usare la tecnica di over-shooting iterando su un parametro.\\
+In particolare poiche siamo in condizioni di equilibrio termico, tratteremo il nostro problema come fatto nel caso si lastra isoterma.\\
+Ovvero ipotizzando un valore tentativo per $g(0)$, possiamo ricavare $G(0)$. Una volta noto $G(0)$ attraverso la relazione ottenuta tra $H(0)$ e $G(0)$nel caso di lastra isoterma
+($G(0)=\frac{\gamma-1}{2}M_{\infty}^2H(0)$) ricaviamo $H(0)$. \\
+A questo punto al sistema di equazioni:\\
+$$f^{'}=F$$
+$$F^{'}=H$$
+$$g^{'}=G$$
+$$G^{'}=\frac{G^{2}}{g}-fgG-(g-1)M_{\infty}^{2}H^{2}$$
+$$H^{'}=\frac{GH}{g}-fHg$$
+\\\\
+si aggiungono le seguenti condizioni iniziali:\\
+$$f(0)=0$$
+$$F(0)=0$$
+$$g(0)=g(0)_{i}$$
+$$G(0)=\frac{g(0)(g(0)^4-1)}{A(x)}$$
+$$H(0)=\frac{2G(0)}{(\gamma-1)M_{\infty}^2}$$
+Bisogna osservare come la formula sopra ricavata presenti una dipendenza dalla variabile fisica x attraverso il $Re_{x}=\frac{\rho_{e} u_{e} x}{\mu_{e}}$.\\
+Questo implica la perdita della similarità dei profili, vanificando tutto ciò che è stato fatto al fine di semplificare il problema del calcolo del profilo termico e di velocità in prossimità dello strato limite.\\
+Tuttavia si può supporre un valore di $A(x)$ costante, l'errore che si commette rispetto a quanto osservato sperimentalmente è irrilevante per questo tipo di problemi.\\
+Faremo vedere infatti, come calcolando il profilo di temperatura in due sezioni della lastra piana, $x_{1}=0.1m$ $x_{2}=1m$, separate tra loro da un ordine di grandezza, l'errore massimo che si commette tra una sezione e l'altra risulta essere dell'ordine dell'unità.\\
+Supponendo che per questo tipo di problema si abbia:\\
+$\bullet$\quad$\rho_{e}=1.3$ $10^{-3}\frac{kg}{m^3}$\\
+$\bullet$\quad$\mu_{e}=1.7$ $10^{-5}\frac{Ns}{m^2}$\\
+$\bullet$\quad$a_{e}=347$ $\frac{m}{s}$\\
+$\bullet$\quad$M_{\infty}=10$\\
+
+Si riportano i risulati in forma grafica.\\
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/frad}
+		\caption{Andamento $u/u_{e}$ in funzione di $\eta$, lastra piana, caso radiativo}
+\end{figure}
+\newpage
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=150mm]{Immagini/grad}
+		\caption{Andamento $T/T_{e}$ in funzione di $\eta$, lastra piana, caso radiativo}
+\end{figure}
+
+
+
+Per completezza vengono riportati in tabella i valori di $G,g(\infty),F(\infty)$, che si sono ottenuti per ogni iterazione.\\
+$\bullet$\quad Caso $x=0.1m$\\
+
+\begin{center}
+	\begin{tabular}{ c c c }
+		\hline
+		$g(0)$ & $g(\infty)$  & $F(\infty)$ \\
+		\hline
+		2 & 4.71   &  0.838  \\
+		\hline
+		2.1 & 2.91   & 0.9576  \\
+		\hline
+		2.195 & 1.004   & 1.053  \\
+		\hline
+		
+	\end{tabular}
+\end{center}
+$\bullet$\quad Caso $x=1m$\\
+
+\begin{center}
+	\begin{tabular}{ c c c }
+		\hline
+		$g(0)$ & $g(\infty)$  & $F(\infty)$ \\
+		\hline
+		2 & 4.71   &  0.838  \\
+		\hline
+		2.1 & 2.91   & 0.9576  \\
+		\hline
+		2.195 & 1.004   & 1.053  \\
+		\hline
+		
+	\end{tabular}
+\end{center}
+ \section{Punto di ristagno}
+ Si considera ora il caso di un corpo tozzo, in cui ci si propone di analizzare lo strato limite in prossimità del punto di ristagno.\\
+ Il corpo considerato è un cilindro di raggio $R=1m$, di estensione infinita lungo la direzione assiale, soggetto ad una corrente d'aria supersonica a $M=10$, alle seguenti condizioni di temperatura e pressione $T_{\infty}=200K$ e $p_{\infty}=65Pa$, tipiche per un problema di rientro a quota di $60km$.\\
+ Per semplicità assumiamo $\mu=\mu_{e}$ e al solito $Pr=1$.\\
+ La temperatura sul corpo del cilindro sia assegnata e pari a $T_{w}=1000K$\\
+ Il flusso che si viene a determianare prevede la formazione di un urto curvo staccato dal corpo, posto ad una certa distanza detta stand-off distance, in cui le particelle di fluido attraversando l'urto entrano nello starto limite fino a fermarsi.\\
+ La temperatura a valle dell'urto, o temperatura esterna allo strato limite è:\\
+ $$T_{e}=T_{0\infty}=T_{\infty}+\frac{u_{\infty}^2}{2C_{p}}=4200K$$
+ Mentre per quanto riguarda la pressione analogamente:\\
+ $$p_{e}=p_{02}=7572Pa$$.\\
+ In particolare si ha:\\
+ $$\frac{T_{w}}{T_{e}}=0.238$$
+ Avendo considerato la viscosità costante, in corrispondenza del punto di ristagno $\xi=0$, il sistema di equazioni per il calcolo dello strato limite diventa:\\
+ $$(\frac{f^{''}}{g})^{'}+ff^{''}=(f')^{2}-g$$
+ $$(\frac{g'}{g})'+fg^{'}=0$$\\\\
+ con le seguenti condizioni al contorno:\\\\
+ $\bullet$\quad $\eta=0$\quad $f=f'=0\quad g=0.238$\\\\
+ $\bullet$\quad $\eta=\infty$\quad $f'=g=1$\\\\
+ 
+ Analogamente a quanto visto nell'analisi dello strato limite nelle sezioni precedenti, si vuolre rcondurre il sistema in un sistema di 5 equaizioni differenziali al primo ordine.
+ Sempre avvalendoci del consueto cambio di cordinate si ha:\\
+ $$f^{'}=F$$
+ $$g^{'}=G$$
+ $$F^{'}=H$$
+ $$H^{'}=\frac{GH}{g}-fHg+gF^2-g^2$$
+ $$G^{'}=\frac{G^{2}}{g}-fgG$$\\\\
+ Utilizzando sempre una tecnica di over-shooting, le condizioni al contorno diventano:\\
+ $$f(0)=0$$
+ $$F(0)=0$$
+ $$g(0)=0.238$$
+ $$H(0)=H_{i}$$
+ $$G(0)=G_{i}$$\\\\
+ Si noti come in questo caso l'analogia di Reynolds non vale, per questo motivo bisogna procedere con una doppia iterazione sui parametri $G$ e $H$.
+ Si ricava:\\
+ \begin{center}
+ 	\begin{tabular}{c c c c c }
+ 		\hline
+ 		$g(0)$& $G(0)$  & $H(0)$ & $g(\infty)$  & $F(\infty)$ \\
+ 		\hline
+ 		0.238 & 0.1288   &  0.2840 & 1.0094 & 1.0024  \\
+ 		\hline
+ 		
+ 	\end{tabular}
+ \end{center}
+ Si riportano i risultati ottenuti in forma grafica.\\
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=150mm]{Immagini/puntodiristagno}
+ 		\caption{Andamento $T/T_{e}$ in funzione di $\eta$, cilindro, punto di ristagno}
+ \end{figure}
+ Un'altra grandezza di interesse da determinare è il flusso termico a parete.\\
+ In particolare si ha:\\
+ $$q_{w}=-k_{w}\frac{d T}{d y}$$
+ Notando che:\\
+$$\frac{d T}{d y}=T_{e}\frac{d g}{d\eta}\frac{d \eta}{dy}=T_{e}G(0)\frac{d \eta}{dy}$$ 
+e inoltre sapendo che:\\
+$$\eta=\frac{u_{e}}{\sqrt{2\xi}}\int_0^y \rho(y)\,dy$$
+$$\xi=\int_{0}^{x}\rho_{e}u_{e}\mu_{e},dx$$
+e che per nell'intorno del punto di ristagno possiamo sviluppare in serie di Taylor la $u_{e}=\frac{du_{e}}{dx}x$,si ha che :\\
+$$\xi=\rho_{e}\mu_{e}\frac{du_{e}}{dx}\frac{x^2}{2}$$
+e sostituendo in $\eta$ si ha che:
+$$\frac{d \eta}{dy}=\frac{\sqrt{\frac{du_{e}}{dx}}}{\sqrt{\rho_{e}\mu_{e}}}\rho_{w}$$
+ovvero per il flusso termico si ha:\\
+$$q_{w}=-k_{w}T_{e}G(0)\frac{\sqrt{\frac{du_{e}}{dx}}}{\sqrt{\rho_{e}\mu_{e}}}\rho_{w}$$
+Utilizzando il risultato ottenuto nella teoria Newtoniana si ha:\\
+$$\frac{du_{e}}{dx}=\frac{1}{R}\sqrt{\frac{2(p_{e}-p_{\infty})}{\rho_{e}}}$$
+dove $\rho_{e}$ viene calcolato attraverso la legge di stato dei gas, mentre per la viscosità, attraverso la legge di Sutherland, si ha $\mu_{e}=1.7$ $10^{-5}\frac{kg}{ms}$, assumendo un $C_{p}=1004.5\frac{J}{kgK}$ per l'aria e sempre nell'ipotesi di $Pr=1$ si ha:\\
+$$Pr=\frac{\mu C_{p}}{k_{w}}$$
+da cui si ricava $k_{w}=0.017\frac{W}{mK}$.\\
+Sostituendo i valori appena trovati si ricava che:
+$$q_{w}=29104\frac{W}{m^2}$$
+Bisogna sottolineare come i calcoli, con relative ipotesi, svolti finora sono del tutto semplificativi e mirati ad avere una stima spannometrica dell' ordine delle grandezze in gioco.\\
+Abbiamo visto precedentemente, come la temperatura esterna allo strato limite sia di circa $4200K$, temperature cosi elevate comportano fenomeni chimici di dissociazione e ricombinazione.\\
+Questi fenomeni nella pratica devono essere presi in considerazione, perchè modificano in maniera sostanziale le grandezze che entrano in gioco nel calcolo svolto, come ad esempio può essere la $\mu$ il $C_{p}$ e cosi via, portando a risultati finali che possono differire da quelli ottenuti anche di un ordine di grandezza.
+
+
+
+
+
+
+\end{document}
